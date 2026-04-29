@@ -1,6 +1,6 @@
-const { app } = require("./app").default;
-const { env } = require("./config/env");
-const { verifyDatabaseConnection } = require("./database/db");
+import app from "./app.js";
+import env from "./config/env.js";
+import { verifyDatabaseConnection } from "./database/db.js";
 
 async function startServer() {
   try {

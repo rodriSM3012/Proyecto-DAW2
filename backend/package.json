@@ -1,5 +1,6 @@
 {
   "name": "inventory-backend",
+  "type": "module",
   "version": "1.0.0",
   "description": "Backend API for inventory platform (auth module in JS)",
   "main": "src/server.js",

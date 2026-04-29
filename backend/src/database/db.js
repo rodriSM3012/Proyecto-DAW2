@@ -1,7 +1,7 @@
-const mysql = require("mysql2/promise");
-const { env } = require("../config/env").default;
+import { createPool } from "mysql2/promise";
+import env from "../config/env.js";
 
-const pool = mysql.createPool({
+export const pool = createPool({
   host: env.db.host,
   port: env.db.port,
   user: env.db.user,
@@ -9,11 +9,9 @@ const pool = mysql.createPool({
   database: env.db.database,
   waitForConnections: true,
   connectionLimit: 10,
-  queueLimit: 0
+  queueLimit: 0,
 });
 
-async function verifyDatabaseConnection() {
+export async function verifyDatabaseConnection() {
   await pool.query("SELECT 1");
 }
-
-module.exports = { pool, verifyDatabaseConnection };

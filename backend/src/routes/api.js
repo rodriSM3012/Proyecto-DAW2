@@ -1,14 +1,19 @@
-const express = require("express");
-const { authenticateToken, requireRoles } = require("../middleware/decorators");
+import { Router } from "express";
+import { authenticateToken, requireRoles } from "../middleware/decorators.js";
 
-const router = express.Router();
+const router = Router();
 
 router.get("/me", authenticateToken, (req, res) => {
   res.json({ user: req.user });
 });
 
-router.get("/admin-only", authenticateToken, requireRoles("admin"), (req, res) => {
-  res.json({ message: "Admin access granted." });
-});
+router.get(
+  "/admin-only",
+  authenticateToken,
+  requireRoles("admin"),
+  (req, res) => {
+    res.json({ message: "Admin access granted." });
+  },
+);
 
-module.exports = router;
+export default router;

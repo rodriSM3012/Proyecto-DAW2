@@ -1,20 +1,20 @@
-const express = require("express");
-const rateLimit = require("express-rate-limit");
-const { register, login, logout } = require("../controllers/authController");
-const { authenticateToken } = require("../middleware/decorators");
+import { Router } from "express";
+import rateLimit from "express-rate-limit";
+import { register, login, logout } from "../controllers/authController.js";
+import { authenticateToken } from "../middleware/decorators.js";
 
-const router = express.Router();
+const router = Router();
 
 const loginRateLimiter = rateLimit({
   windowMs: 15 * 60 * 1000,
   max: 10,
   standardHeaders: true,
   legacyHeaders: false,
-  message: { error: "Too many login attempts. Please try again later." }
+  message: { error: "Too many login attempts. Please try again later." },
 });
 
 router.post("/register", register);
 router.post("/login", loginRateLimiter, login);
 router.post("/logout", authenticateToken, logout);
 
-module.exports = router;
+export default router;

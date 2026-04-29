@@ -2,8 +2,8 @@ import express, { json } from "express";
 import helmet from "helmet";
 import cors from "cors";
 import cookieParser from "cookie-parser";
-import authRoutes from "./routes/auth";
-import apiRoutes from "./routes/api";
+import authRoutes from "./routes/auth.js";
+import apiRoutes from "./routes/api.js";
 
 const app = express();
 
@@ -11,8 +11,8 @@ app.use(helmet());
 app.use(
   cors({
     origin: true,
-    credentials: true
-  })
+    credentials: true,
+  }),
 );
 app.use(json({ limit: "1mb" }));
 app.use(cookieParser());
