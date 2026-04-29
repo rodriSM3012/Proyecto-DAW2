@@ -1,0 +1,8 @@
+CREATE TABLE IF NOT EXISTS usuario (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  nombre VARCHAR(120) NOT NULL,
+  email VARCHAR(190) NOT NULL UNIQUE,
+  password_hash VARCHAR(255) NOT NULL,
+  rol ENUM('admin', 'operador', 'auditor') NOT NULL DEFAULT 'operador',
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
