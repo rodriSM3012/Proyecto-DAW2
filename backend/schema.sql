@@ -6,3 +6,29 @@ CREATE TABLE IF NOT EXISTS usuario (
   rol ENUM('admin', 'operador', 'auditor') NOT NULL DEFAULT 'operador',
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+
+CREATE TABLE IF NOT EXISTS producto (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  nombre VARCHAR(200) NOT NULL,
+  descripcion TEXT,
+  precio_unitario DECIMAL(10,2) NOT NULL DEFAULT 0.00,
+  stock_actual INT NOT NULL DEFAULT 0,
+  stock_minimo INT NOT NULL DEFAULT 0,
+  categoria_abc ENUM('A', 'B', 'C') NOT NULL DEFAULT 'C',
+  codigo_qr VARCHAR(255) NOT NULL UNIQUE,
+  activo TINYINT(1) NOT NULL DEFAULT 1,
+  creado_en DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  actualizado_en DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS movimiento (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  producto_id INT NOT NULL,
+  tipo ENUM('entrada', 'salida', 'ajuste') NOT NULL,
+  cantidad INT NOT NULL,
+  fecha DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  usuario_id INT NOT NULL,
+  detalle VARCHAR(255),
+  CONSTRAINT fk_movimiento_producto FOREIGN KEY (producto_id) REFERENCES producto(id),
+  CONSTRAINT fk_movimiento_usuario FOREIGN KEY (usuario_id) REFERENCES usuario(id)
+);
