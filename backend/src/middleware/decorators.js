@@ -23,13 +23,26 @@ export function authenticateToken(req, res, next) {
   }
 }
 
+const roleHierarchy = {
+  admin: 3,
+  operador: 2,
+  auditor: 1
+};
+
 export function requireRoles(...allowedRoles) {
   return (req, res, next) => {
     if (!req.user) {
       return res.status(401).json({ error: "Authentication required." });
     }
 
-    if (!allowedRoles.includes(req.user.role)) {
+    const userRoleLevel = roleHierarchy[req.user.role] || 0;
+    
+    const hasPermission = allowedRoles.some(role => {
+      const requiredLevel = roleHierarchy[role] || 0;
+      return userRoleLevel >= requiredLevel;
+    });
+
+    if (!hasPermission) {
       return res
         .status(403)
         .json({ error: "Forbidden: insufficient permissions." });
