@@ -11,7 +11,7 @@ export function validateRegisterPayload(payload) {
     .trim()
     .toLowerCase();
   const password = String(payload.password || "");
-  const role = sanitizeText(payload.role || "operador");
+  const role = String(payload.role || "operador").trim().toLowerCase();
 
   if (!name || name.length < 2) {
     return { ok: false, message: "Name must contain at least 2 characters." };
@@ -27,6 +27,11 @@ export function validateRegisterPayload(payload) {
       message:
         "Password must be at least 8 chars with upper, lower and number.",
     };
+  }
+
+  const validRoles = ["admin", "operador", "auditor"];
+  if (!validRoles.includes(role)) {
+    return { ok: false, message: "Role must be admin, operador, or auditor." };
   }
 
   return {
