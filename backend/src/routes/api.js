@@ -1,6 +1,7 @@
 import { Router } from "express";
 import { authenticateToken, requireRoles } from "../middleware/decorators.js";
 import productsRoutes from "./products.js";
+import movementsRoutes from "./movements.js";
 
 const router = Router();
 
@@ -18,5 +19,6 @@ router.get(
 );
 
 router.use("/products", productsRoutes);
+router.use("/movimientos", movementsRoutes);
 
 export default router;

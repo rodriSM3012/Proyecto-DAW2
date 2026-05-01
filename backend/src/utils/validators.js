@@ -117,3 +117,36 @@ export function validateCreateProductPayload(payload) {
 export function validateUpdateProductPayload(payload) {
   return validateCreateProductPayload(payload);
 }
+
+export function validateCreateMovementPayload(payload) {
+  const producto_id = Number(payload.producto_id);
+  const tipo = String(payload.tipo || "")
+    .trim()
+    .toLowerCase();
+  const cantidad = Number(payload.cantidad);
+  const detalle = sanitizeText(payload.detalle || "");
+
+  if (!Number.isInteger(producto_id) || producto_id <= 0) {
+    return { ok: false, message: "producto_id must be a positive integer." };
+  }
+
+  if (!["entrada", "salida", "ajuste"].includes(tipo)) {
+    return { ok: false, message: "tipo must be entrada, salida or ajuste." };
+  }
+
+  if (!Number.isInteger(cantidad) || cantidad === 0) {
+    return { ok: false, message: "cantidad must be a non-zero integer." };
+  }
+
+  if ((tipo === "entrada" || tipo === "salida") && cantidad < 0) {
+    return {
+      ok: false,
+      message: "For entrada/salida, cantidad must be a positive integer.",
+    };
+  }
+
+  return {
+    ok: true,
+    data: { producto_id, tipo, cantidad, detalle },
+  };
+}
