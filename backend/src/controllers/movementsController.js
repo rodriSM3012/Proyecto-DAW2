@@ -27,7 +27,7 @@ export async function createMovement(req, res) {
     await connection.beginTransaction();
 
     const [productRows] = await connection.query(
-      "SELECT id, stock_actual FROM producto WHERE id = ? AND activo = 1 LIMIT 1",
+      "SELECT id, stock_actual, stock_minimo FROM producto WHERE id = ? AND activo = 1 LIMIT 1",
       [producto_id],
     );
 
@@ -50,6 +50,21 @@ export async function createMovement(req, res) {
       "UPDATE producto SET stock_actual = ?, actualizado_en = NOW() WHERE id = ?",
       [newStock, producto_id],
     );
+
+    const stockMinimo = Number(productRows[0].stock_minimo);
+    if (newStock < stockMinimo) {
+      const [existingAlertRows] = await connection.query(
+        "SELECT id FROM alerta WHERE producto_id = ? AND leida = FALSE LIMIT 1",
+        [producto_id],
+      );
+
+      if (existingAlertRows.length === 0) {
+        await connection.query(
+          "INSERT INTO alerta (producto_id, fecha, leida, email_enviado) VALUES (?, NOW(), FALSE, FALSE)",
+          [producto_id],
+        );
+      }
+    }
 
     const [movementResult] = await connection.query(
       `INSERT INTO movimiento (producto_id, tipo, cantidad, fecha, usuario_id, detalle)

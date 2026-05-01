@@ -2,6 +2,7 @@ import { Router } from "express";
 import { authenticateToken, requireRoles } from "../middleware/decorators.js";
 import productsRoutes from "./products.js";
 import movementsRoutes from "./movements.js";
+import alertsRoutes from "./alerts.js";
 
 const router = Router();
 
@@ -20,5 +21,6 @@ router.get(
 
 router.use("/products", productsRoutes);
 router.use("/movimientos", movementsRoutes);
+router.use("/alertas", alertsRoutes);
 
 export default router;

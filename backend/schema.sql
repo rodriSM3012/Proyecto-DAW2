@@ -32,3 +32,12 @@ CREATE TABLE IF NOT EXISTS movimiento (
   CONSTRAINT fk_movimiento_producto FOREIGN KEY (producto_id) REFERENCES producto(id),
   CONSTRAINT fk_movimiento_usuario FOREIGN KEY (usuario_id) REFERENCES usuario(id)
 );
+
+CREATE TABLE IF NOT EXISTS alerta (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  producto_id INT NOT NULL,
+  fecha DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  leida BOOLEAN NOT NULL DEFAULT FALSE,
+  email_enviado BOOLEAN NOT NULL DEFAULT FALSE,
+  CONSTRAINT fk_alerta_producto FOREIGN KEY (producto_id) REFERENCES producto(id)
+);
