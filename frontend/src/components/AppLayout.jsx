@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Link, Outlet, useLocation } from "react-router-dom";
 import {
   Bell,
@@ -36,8 +37,16 @@ function getRoleLabel(role) {
 export default function AppLayout() {
   const { user, hasRole, logout } = useAuth();
   const location = useLocation();
+  const [showLogoutConfirm, setShowLogoutConfirm] = useState(false);
 
   const visibleItems = MENU_ITEMS.filter((item) => hasRole(item.minimumRole));
+
+  const handleLogoutClick = () => setShowLogoutConfirm(true);
+  const confirmLogout = () => {
+    setShowLogoutConfirm(false);
+    logout();
+  };
+  const cancelLogout = () => setShowLogoutConfirm(false);
 
   return (
     <div className="app-shell">
@@ -64,7 +73,7 @@ export default function AppLayout() {
             <p className="topbar-greeting">Hola, {user?.name || user?.email}</p>
             <p className="topbar-role">{getRoleLabel(user?.role)}</p>
           </div>
-          <button type="button" className="btn btn-ghost" onClick={logout}>
+          <button type="button" className="btn btn-ghost" onClick={handleLogoutClick}>
             Cerrar sesión
           </button>
         </header>
@@ -73,6 +82,19 @@ export default function AppLayout() {
           <Outlet />
         </main>
       </div>
+
+      {showLogoutConfirm && (
+        <div className="modal-overlay">
+          <div className="modal-content card">
+            <h2>Cerrar sesión</h2>
+            <p className="card-text">¿Estás seguro de que quieres cerrar la sesión actual?</p>
+            <div className="modal-actions">
+              <button className="btn btn-ghost" onClick={cancelLogout}>Cancelar</button>
+              <button className="btn btn-primary" onClick={confirmLogout}>Aceptar</button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
