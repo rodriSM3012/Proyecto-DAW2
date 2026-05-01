@@ -1,5 +1,6 @@
 import { pool } from "../database/db.js";
 import { validateCreateMovementPayload } from "../utils/validators.js";
+import { scheduleAbcRecalculation } from "../services/abcService.js";
 
 function calculateStockChange(tipo, cantidad) {
   if (tipo === "entrada") return cantidad;
@@ -73,6 +74,12 @@ export async function createMovement(req, res) {
     );
 
     await connection.commit();
+
+    try {
+      scheduleAbcRecalculation();
+    } catch (abcError) {
+      console.error("Scheduling ABC reclassification failed:", abcError);
+    }
 
     return res.status(201).json({
       message: "Movement created successfully.",

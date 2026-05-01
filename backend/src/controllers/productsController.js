@@ -1,5 +1,6 @@
 import { randomUUID } from "crypto";
 import { pool } from "../database/db.js";
+import { recalculateAbcCategories } from "../services/abcService.js";
 import {
   validateCreateProductPayload,
   validateUpdateProductPayload,
@@ -156,5 +157,18 @@ export async function deleteProduct(req, res) {
   } catch (error) {
     console.error("Error in deleteProduct:", error);
     return res.status(500).json({ error: "Failed to delete the product." });
+  }
+}
+
+export async function reclassifyProductsAbc(req, res) {
+  try {
+    const result = await recalculateAbcCategories();
+    return res.status(200).json({
+      message: result.message || "ABC classification recalculated successfully.",
+      summary: result,
+    });
+  } catch (error) {
+    console.error("Error in reclassifyProductsAbc:", error);
+    return res.status(500).json({ error: "Failed to recalculate ABC categories." });
   }
 }
