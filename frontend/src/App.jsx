@@ -1,6 +1,7 @@
 import { Navigate, Route, Routes } from "react-router-dom";
 import AppLayout from "./components/AppLayout.jsx";
 import ProtectedRoute from "./components/ProtectedRoute.jsx";
+import DashboardPage from "./pages/DashboardPage.jsx";
 import LoginPage from "./pages/LoginPage.jsx";
 import PlaceholderPage from "./pages/PlaceholderPage.jsx";
 import RegisterUserPage from "./pages/RegisterUserPage.jsx";
@@ -14,17 +15,7 @@ function App() {
         <Route element={<AppLayout />}>
           <Route
             path="/dashboard"
-            element={
-              <PlaceholderPage
-                title="Dashboard"
-                description="Centro de control con bloques distintos según el rol."
-                bullets={[
-                  "Administrador: stock global, alertas activas, rotación ABC, últimos movimientos.",
-                  "Operador: acceso rápido al escáner, tareas pendientes y notificaciones de alertas.",
-                  "Auditor: resumen de movimientos, integridad e indicadores de errores.",
-                ]}
-              />
-            }
+            element={<DashboardPage />}
           />
           <Route
             path="/movimientos"
