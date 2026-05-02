@@ -2,7 +2,10 @@ import { useEffect, useMemo, useRef } from "react";
 import { Html5Qrcode } from "html5-qrcode";
 
 function randomDomId(prefix) {
-  if (typeof crypto !== "undefined" && typeof crypto.randomUUID === "function") {
+  if (
+    typeof crypto !== "undefined" &&
+    typeof crypto.randomUUID === "function"
+  ) {
     return `${prefix}-${crypto.randomUUID()}`;
   }
   return `${prefix}-${Date.now()}-${Math.random().toString(36).slice(2)}`;
@@ -12,28 +15,36 @@ function randomDomId(prefix) {
  * Vista previa por cámara (html5-qrcode). Llama `onDecoded` con el texto leído.
  * Si `paused` es true, detiene la cámara hasta que vuelva a false (p.ej. tras cargar producto).
  */
-export default function QRScanner({ onDecoded, onCameraError, paused = false }) {
+export default function QRScanner({
+  onDecoded,
+  onCameraError,
+  paused = false,
+}) {
   const containerId = useMemo(() => randomDomId("h5qr"), []);
   const scannerRef = useRef(null);
   const onDecodedRef = useRef(onDecoded);
   const onCameraErrorRef = useRef(onCameraError);
+  const startedRef = useRef(false); // ← bandera de arranque exitoso
 
   useEffect(() => {
     onDecodedRef.current = onDecoded;
   }, [onDecoded]);
-
   useEffect(() => {
     onCameraErrorRef.current = onCameraError;
   }, [onCameraError]);
 
+  // Efecto para pausar/reanudar o detener completamente
   useEffect(() => {
     if (paused) {
       const scanner = scannerRef.current;
-      if (scanner) {
+      if (scanner && startedRef.current) {
         scanner
           .stop()
           .then(() => scanner.clear())
-          .catch(() => {});
+          .catch(() => {})
+          .finally(() => {
+            startedRef.current = false;
+          });
       }
       scannerRef.current = null;
       return;
@@ -58,9 +69,14 @@ export default function QRScanner({ onDecoded, onCameraError, paused = false }) 
           },
           () => {},
         );
+        // Solo si llegamos aquí sin error, marcamos como iniciado
+        if (!cancelled) startedRef.current = true;
       } catch (err) {
         console.warn("QR camera start:", err.message || err);
-        const msg = typeof err?.message === "string" ? err.message : "No se pudo acceder a la cámara.";
+        const msg =
+          typeof err?.message === "string"
+            ? err.message
+            : "No se pudo acceder a la cámara.";
         if (!cancelled && typeof onCameraErrorRef.current === "function") {
           onCameraErrorRef.current(msg);
         }
@@ -71,11 +87,14 @@ export default function QRScanner({ onDecoded, onCameraError, paused = false }) 
 
     return () => {
       cancelled = true;
-      if (instance) {
+      if (instance && startedRef.current) {
         instance
           .stop()
           .then(() => instance.clear())
-          .catch(() => {});
+          .catch(() => {})
+          .finally(() => {
+            startedRef.current = false;
+          });
       }
       if (scannerRef.current === instance) {
         scannerRef.current = null;
