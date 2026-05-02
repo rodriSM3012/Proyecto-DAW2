@@ -21,6 +21,32 @@ export async function listProducts(req, res) {
   }
 }
 
+export async function getProductByQr(req, res) {
+  try {
+    const codigo = String(req.params.codigo || "").trim();
+    if (!codigo || codigo.length > 255) {
+      return res.status(400).json({ error: "Invalid QR code." });
+    }
+
+    const [rows] = await pool.query(
+      `SELECT id, nombre, descripcion, precio_unitario, stock_actual, stock_minimo, categoria_abc, codigo_qr, activo, creado_en, actualizado_en
+       FROM producto
+       WHERE codigo_qr = ? AND activo = 1
+       LIMIT 1`,
+      [codigo],
+    );
+
+    if (rows.length === 0) {
+      return res.status(404).json({ error: "Product not found for this QR code." });
+    }
+
+    return res.status(200).json({ product: rows[0] });
+  } catch (error) {
+    console.error("Error in getProductByQr:", error);
+    return res.status(500).json({ error: "Failed to retrieve the product." });
+  }
+}
+
 export async function getProductById(req, res) {
   try {
     const id = Number(req.params.id);

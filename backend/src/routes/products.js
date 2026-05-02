@@ -3,6 +3,7 @@ import { authenticateToken, requireRoles } from "../middleware/decorators.js";
 import {
   listProducts,
   getProductById,
+  getProductByQr,
   createProduct,
   updateProduct,
   deleteProduct,
@@ -12,6 +13,7 @@ import {
 const router = Router();
 
 router.get("/", authenticateToken, listProducts);
+router.get("/by-qr/:codigo", authenticateToken, getProductByQr);
 router.get("/:id", authenticateToken, getProductById);
 
 router.post("/", authenticateToken, requireRoles("admin"), createProduct);
