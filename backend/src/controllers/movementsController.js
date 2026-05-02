@@ -28,7 +28,7 @@ export async function createMovement(req, res) {
     await connection.beginTransaction();
 
     const [productRows] = await connection.query(
-      "SELECT id, stock_actual, stock_minimo FROM producto WHERE id = ? AND activo = 1 LIMIT 1",
+      "SELECT id, stock_actual, stock_minimo FROM producto WHERE id = ? AND activo = 1 LIMIT 1 FOR UPDATE",
       [producto_id],
     );
 

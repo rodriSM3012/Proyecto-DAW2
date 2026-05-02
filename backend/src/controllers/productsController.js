@@ -73,6 +73,26 @@ export async function getProductById(req, res) {
   }
 }
 
+export async function getProductQr(req, res) {
+  try {
+    const id = Number(req.params.id);
+    if (!Number.isInteger(id) || id <= 0) {
+      return res.status(400).json({ error: "Invalid product id." });
+    }
+
+    const [rows] = await pool.query("SELECT codigo_qr FROM producto WHERE id = ? AND activo = 1 LIMIT 1", [id]);
+    if (rows.length === 0) {
+      return res.status(404).json({ error: "Product not found." });
+    }
+
+    const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${rows[0].codigo_qr}`;
+    return res.redirect(qrUrl);
+  } catch (error) {
+    console.error("Error in getProductQr:", error);
+    return res.status(500).json({ error: "Failed to generate QR." });
+  }
+}
+
 export async function createProduct(req, res) {
   try {
     const validation = validateCreateProductPayload(req.body);

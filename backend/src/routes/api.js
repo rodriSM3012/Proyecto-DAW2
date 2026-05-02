@@ -4,6 +4,7 @@ import productsRoutes from "./products.js";
 import movementsRoutes from "./movements.js";
 import alertsRoutes from "./alerts.js";
 import usersRoutes from "./users.js";
+import dashboardRoutes from "./dashboard.js";
 
 const router = Router();
 
@@ -24,5 +25,6 @@ router.use("/products", productsRoutes);
 router.use("/movimientos", movementsRoutes);
 router.use("/alertas", alertsRoutes);
 router.use("/users", usersRoutes);
+router.use("/dashboard", dashboardRoutes);
 
 export default router;

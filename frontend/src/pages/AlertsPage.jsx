@@ -10,21 +10,23 @@ export default function AlertsPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  const loadAlerts = async () => {
-    setLoading(true);
+  const loadAlerts = async (silent = false) => {
+    if (!silent) setLoading(true);
     try {
       const res = await api.get("/api/alertas");
       setAlerts(res.data.alerts || []);
     } catch (err) {
       console.error("Error fetching alerts:", err);
-      setError("Error al cargar las alertas.");
+      if (!silent) setError("Error al cargar las alertas.");
     } finally {
-      setLoading(false);
+      if (!silent) setLoading(false);
     }
   };
 
   useEffect(() => {
     loadAlerts();
+    const interval = setInterval(() => loadAlerts(true), 30000);
+    return () => clearInterval(interval);
   }, []);
 
   const markAsRead = async (id) => {

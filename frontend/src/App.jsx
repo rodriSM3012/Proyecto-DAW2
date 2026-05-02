@@ -14,6 +14,7 @@ import AlertsPage from "./pages/AlertsPage.jsx";
 import AbcClassificationPage from "./pages/AbcClassificationPage.jsx";
 import ReportsPage from "./pages/ReportsPage.jsx";
 import UsersPage from "./pages/UsersPage.jsx";
+import EditUserPage from "./pages/EditUserPage.jsx";
 import ProfilePage from "./pages/ProfilePage.jsx";
 import SettingsPage from "./pages/SettingsPage.jsx";
 
@@ -56,6 +57,7 @@ function App() {
           />
           <Route path="/usuarios" element={<UsersPage />} />
           <Route path="/usuarios/nuevo" element={<RegisterUserPage />} />
+          <Route path="/usuarios/:id/editar" element={<EditUserPage />} />
           <Route path="/configuracion" element={<SettingsPage />} />
         </Route>
       </Route>

@@ -106,8 +106,18 @@ export default function ProductDetailPage() {
 
       <section className="card details-grid">
         <div>
-          <h3 className="section-title">Código QR (UUID)</h3>
-          <code className="mono-box">{product.codigo_qr}</code>
+          <h3 className="section-title">Código QR</h3>
+          <div style={{ display: "flex", gap: "15px", alignItems: "center", marginTop: "10px" }}>
+            <img 
+              src={`https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${product.codigo_qr}`} 
+              alt="QR Code" 
+              style={{ borderRadius: "8px", border: "1px solid var(--color-border)", width: "120px", height: "120px" }} 
+            />
+            <div>
+              <p className="muted" style={{ margin: "0 0 4px 0", fontSize: "0.85rem" }}>UUID:</p>
+              <code className="mono-box">{product.codigo_qr}</code>
+            </div>
+          </div>
         </div>
         <div>
           <h3 className="section-title">Descripción</h3>

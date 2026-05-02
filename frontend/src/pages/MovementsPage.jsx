@@ -10,7 +10,8 @@ export default function MovementsPage() {
 
   // Filters
   const [filterType, setFilterType] = useState("");
-  const [filterDate, setFilterDate] = useState("");
+  const [filterStartDate, setFilterStartDate] = useState("");
+  const [filterEndDate, setFilterEndDate] = useState("");
   const [filterProduct, setFilterProduct] = useState("");
 
   // Pagination
@@ -51,8 +52,15 @@ export default function MovementsPage() {
     return movements.filter(m => {
       // Type filter
       if (filterType && m.tipo !== filterType) return false;
-      // Date filter
-      if (filterDate && !m.fecha.startsWith(filterDate)) return false;
+      // Date filters
+      if (filterStartDate) {
+        if (new Date(m.fecha) < new Date(filterStartDate)) return false;
+      }
+      if (filterEndDate) {
+        const end = new Date(filterEndDate);
+        end.setHours(23, 59, 59, 999);
+        if (new Date(m.fecha) > end) return false;
+      }
       // Product name filter
       if (filterProduct) {
         const pName = products[m.producto_id]?.toLowerCase() || "";
@@ -60,7 +68,7 @@ export default function MovementsPage() {
       }
       return true;
     });
-  }, [movements, filterType, filterDate, filterProduct, products]);
+  }, [movements, filterType, filterStartDate, filterEndDate, filterProduct, products]);
 
   const totalPages = Math.ceil(filteredMovements.length / ITEMS_PER_PAGE) || 1;
   const currentMovements = filteredMovements.slice(
@@ -98,14 +106,26 @@ export default function MovementsPage() {
             <option value="salida">Salida</option>
             <option value="ajuste">Ajuste</option>
           </select>
-          <input
-            type="date"
-            value={filterDate}
-            onChange={(e) => {
-              setFilterDate(e.target.value);
-              setCurrentPage(1);
-            }}
-          />
+          <div style={{ display: "flex", gap: "10px", alignItems: "center" }}>
+            <span className="muted">Desde:</span>
+            <input
+              type="date"
+              value={filterStartDate}
+              onChange={(e) => {
+                setFilterStartDate(e.target.value);
+                setCurrentPage(1);
+              }}
+            />
+            <span className="muted">Hasta:</span>
+            <input
+              type="date"
+              value={filterEndDate}
+              onChange={(e) => {
+                setFilterEndDate(e.target.value);
+                setCurrentPage(1);
+              }}
+            />
+          </div>
         </div>
       </div>
 

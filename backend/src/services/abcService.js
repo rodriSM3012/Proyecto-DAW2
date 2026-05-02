@@ -13,22 +13,31 @@ function getAbcByRank(index, totalProducts) {
 }
 
 let abcUpdateTimer = null;
+let lastForcedAbcTime = Date.now();
 
 export function scheduleAbcRecalculation() {
+  const now = Date.now();
+  const timeSinceForced = now - lastForcedAbcTime;
+  const MAX_DELAY = 24 * 60 * 60 * 1000; // 24 horas
+
   if (abcUpdateTimer) {
     clearTimeout(abcUpdateTimer);
   }
-  // Programado para 1 hora después del último movimiento, agrupa recálculos
+
+  // Si ha pasado más del tiempo máximo, ejecuta inmediatamente (delay 0), sino resetea el timer de 1 hora o lo que falte
+  const delay = Math.max(0, Math.min(60 * 60 * 1000, MAX_DELAY - timeSinceForced));
+
   abcUpdateTimer = setTimeout(async () => {
     try {
       console.log("Running scheduled ABC reclassification...");
       await recalculateAbcCategories();
+      lastForcedAbcTime = Date.now();
     } catch (err) {
       console.error("Scheduled ABC reclassification failed:", err);
     } finally {
       abcUpdateTimer = null;
     }
-  }, 60 * 60 * 1000); // 1 hora
+  }, delay);
 }
 
 export async function recalculateAbcCategories(externalConnection = null) {

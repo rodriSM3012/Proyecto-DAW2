@@ -51,15 +51,11 @@ export default function DashboardPage() {
       setLoading(true);
       setError("");
       try {
-        const [productsRes, alertsRes, movementsRes] = await Promise.all([
-          api.get("/api/products"),
-          api.get("/api/alertas"),
-          api.get("/api/movimientos"),
-        ]);
-
-        setProducts(productsRes.data?.products || []);
-        setAlerts(alertsRes.data?.alerts || []);
-        setMovements(movementsRes.data?.movements || []);
+        const response = await api.get("/api/dashboard");
+        const data = response.data;
+        setProducts(data.products || []);
+        setAlerts(data.alerts || []);
+        setMovements(data.movements || []);
       } catch (requestError) {
         const backendError = requestError.response?.data?.error;
         setError(backendError || "No se han podido cargar los datos del dashboard.");
@@ -139,7 +135,7 @@ export default function DashboardPage() {
               latestMovements.map((movement) => (
                 <div key={movement.id} className="list-item">
                   <div>
-                    <strong>{movement.tipo}</strong> · Producto #{movement.producto_id}
+                    <strong>{movement.tipo.charAt(0).toUpperCase() + movement.tipo.slice(1)}</strong> · {movement.producto_nombre || `Producto #${movement.producto_id}`}
                   </div>
                   <small className="muted">
                     {movement.cantidad} uds · {formatDate(movement.fecha)}

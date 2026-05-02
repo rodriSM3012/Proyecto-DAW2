@@ -18,6 +18,14 @@ export async function updateUser(req, res) {
     const id = Number(req.params.id);
     const { name, role } = req.body;
     
+    if (!name || name.length < 3 || name.length > 120) {
+      return res.status(400).json({ error: "Invalid name length. Must be between 3 and 120 characters." });
+    }
+    const validRoles = ["admin", "operador", "auditor"];
+    if (!validRoles.includes(role)) {
+      return res.status(400).json({ error: "Invalid role." });
+    }
+    
     const [result] = await pool.query(
       "UPDATE usuario SET nombre = ?, rol = ? WHERE id = ?",
       [name, role, id]
@@ -42,6 +50,9 @@ export async function deleteUser(req, res) {
     }
     return res.status(200).json({ message: "User deleted successfully." });
   } catch (error) {
+    if (error.code === 'ER_ROW_IS_REFERENCED_2') {
+      return res.status(400).json({ error: "No se puede eliminar el usuario. Tiene movimientos asociados en el sistema." });
+    }
     console.error("Error in deleteUser:", error);
     return res.status(500).json({ error: "Failed to delete user." });
   }
@@ -60,7 +71,7 @@ export async function changePassword(req, res) {
 
     if (newPassword.length < 8) return res.status(400).json({ error: "Password must be at least 8 characters long." });
 
-    const newHash = await bcrypt.hash(newPassword, 10);
+    const newHash = await bcrypt.hash(newPassword, 12);
     await pool.query("UPDATE usuario SET password_hash = ? WHERE id = ?", [newHash, userId]);
 
     return res.status(200).json({ message: "Password updated successfully." });

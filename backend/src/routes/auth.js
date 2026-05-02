@@ -1,7 +1,7 @@
 import { Router } from "express";
 import rateLimit from "express-rate-limit";
 import { register, login, logout } from "../controllers/authController.js";
-import { authenticateToken } from "../middleware/decorators.js";
+import { authenticateToken, requireRoles } from "../middleware/decorators.js";
 
 const router = Router();
 
@@ -13,7 +13,7 @@ const loginRateLimiter = rateLimit({
   message: { error: "Too many login attempts. Please try again later." },
 });
 
-router.post("/register", register);
+router.post("/register", authenticateToken, requireRoles("admin"), register);
 router.post("/login", loginRateLimiter, login);
 router.post("/logout", authenticateToken, logout);
 

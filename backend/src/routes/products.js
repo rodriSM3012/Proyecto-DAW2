@@ -4,6 +4,7 @@ import {
   listProducts,
   getProductById,
   getProductByQr,
+  getProductQr,
   createProduct,
   updateProduct,
   deleteProduct,
@@ -15,6 +16,7 @@ const router = Router();
 router.get("/", authenticateToken, listProducts);
 router.get("/by-qr/:codigo", authenticateToken, getProductByQr);
 router.get("/:id", authenticateToken, getProductById);
+router.get("/:id/qr", authenticateToken, getProductQr);
 
 router.post("/", authenticateToken, requireRoles("admin"), createProduct);
 router.post(

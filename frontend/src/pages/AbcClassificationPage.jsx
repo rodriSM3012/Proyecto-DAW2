@@ -127,12 +127,13 @@ export default function AbcClassificationPage() {
               <tbody>
                 {filteredProducts.map(p => {
                   const valorizado = Number(p.precio_unitario) * Number(p.stock_actual);
+                  const formatEur = new Intl.NumberFormat("es-ES", { style: "currency", currency: "EUR" });
                   return (
                     <tr key={p.id}>
                       <td style={{ fontWeight: 600 }}>{p.nombre}</td>
-                      <td>${Number(p.precio_unitario).toFixed(2)}</td>
+                      <td>{formatEur.format(p.precio_unitario)}</td>
                       <td>{p.stock_actual}</td>
-                      <td>${valorizado.toFixed(2)}</td>
+                      <td>{formatEur.format(valorizado)}</td>
                       <td>
                         <span 
                           className="pill"

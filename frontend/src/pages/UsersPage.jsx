@@ -73,7 +73,14 @@ export default function UsersPage() {
                       <span className="pill pill-neutral">{u.role}</span>
                     </td>
                     <td className="muted">{new Date(u.created_at).toLocaleDateString()}</td>
-                    <td>
+                    <td style={{ display: "flex", gap: "8px" }}>
+                      <Link
+                        to={`/usuarios/${u.id}/editar`}
+                        className="btn btn-ghost"
+                        style={{ padding: "4px 8px", fontSize: "0.85rem" }}
+                      >
+                        Editar
+                      </Link>
                       <button 
                         className="btn btn-ghost" 
                         onClick={() => handleDelete(u.id)}
