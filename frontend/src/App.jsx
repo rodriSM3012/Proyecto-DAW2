@@ -6,11 +6,16 @@ import LoginPage from "./pages/LoginPage.jsx";
 import CatalogPage from "./pages/CatalogPage.jsx";
 import ProductDetailPage from "./pages/ProductDetailPage.jsx";
 import ProductFormPage from "./pages/ProductFormPage.jsx";
-import PlaceholderPage from "./pages/PlaceholderPage.jsx";
+// import PlaceholderPage from "./pages/PlaceholderPage.jsx";
 import RegisterUserPage from "./pages/RegisterUserPage.jsx";
 import ScannerPage from "./pages/ScannerPage.jsx";
 import MovementsPage from "./pages/MovementsPage.jsx";
 import AlertsPage from "./pages/AlertsPage.jsx";
+import AbcClassificationPage from "./pages/AbcClassificationPage.jsx";
+import ReportsPage from "./pages/ReportsPage.jsx";
+import UsersPage from "./pages/UsersPage.jsx";
+import ProfilePage from "./pages/ProfilePage.jsx";
+import SettingsPage from "./pages/SettingsPage.jsx";
 
 function App() {
   return (
@@ -19,50 +24,17 @@ function App() {
 
       <Route element={<ProtectedRoute minimumRole="auditor" />}>
         <Route element={<AppLayout />}>
-          <Route
-            path="/dashboard"
-            element={<DashboardPage />}
-          />
-          <Route
-            path="/movimientos"
-            element={<MovementsPage />}
-          />
-          <Route
-            path="/catalogo"
-            element={<CatalogPage />}
-          />
+          <Route path="/dashboard" element={<DashboardPage />} />
+          <Route path="/movimientos" element={<MovementsPage />} />
+          <Route path="/catalogo" element={<CatalogPage />} />
           <Route path="/catalogo/:id" element={<ProductDetailPage />} />
-          <Route
-            path="/alertas"
-            element={<AlertsPage />}
-          />
+          <Route path="/alertas" element={<AlertsPage />} />
           <Route
             path="/clasificacion-abc"
-            element={
-              <PlaceholderPage
-                title="Clasificación ABC"
-                description="Visualización de categorías y ejecución de reclasificación."
-              />
-            }
+            element={<AbcClassificationPage />}
           />
-          <Route
-            path="/reportes"
-            element={
-              <PlaceholderPage
-                title="Reportes y estadísticas"
-                description="Reportes de stock, movimientos, discrepancias y exportables."
-              />
-            }
-          />
-          <Route
-            path="/perfil"
-            element={
-              <PlaceholderPage
-                title="Perfil de usuario"
-                description="Consulta de datos personales y cambio de contraseña."
-              />
-            }
-          />
+          <Route path="/reportes" element={<ReportsPage />} />
+          <Route path="/perfil" element={<ProfilePage />} />
         </Route>
       </Route>
 
@@ -74,18 +46,17 @@ function App() {
 
       <Route element={<ProtectedRoute minimumRole="admin" />}>
         <Route element={<AppLayout />}>
-          <Route path="/catalogo/nuevo" element={<ProductFormPage mode="create" />} />
-          <Route path="/catalogo/:id/editar" element={<ProductFormPage mode="edit" />} />
-          <Route path="/usuarios" element={<RegisterUserPage />} />
           <Route
-            path="/configuracion"
-            element={
-              <PlaceholderPage
-                title="Configuración general"
-                description="Preferencias de aplicación, notificaciones y seguridad."
-              />
-            }
+            path="/catalogo/nuevo"
+            element={<ProductFormPage mode="create" />}
           />
+          <Route
+            path="/catalogo/:id/editar"
+            element={<ProductFormPage mode="edit" />}
+          />
+          <Route path="/usuarios" element={<UsersPage />} />
+          <Route path="/usuarios/nuevo" element={<RegisterUserPage />} />
+          <Route path="/configuracion" element={<SettingsPage />} />
         </Route>
       </Route>
 
