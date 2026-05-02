@@ -56,7 +56,7 @@ export default function AppLayout() {
 
         <nav className="side-nav">
           {visibleItems.map(({ to, label, icon: Icon }) => {
-            const isActive = location.pathname === to;
+            const isActive = location.pathname === to || location.pathname.startsWith(`${to}/`);
             return (
               <Link key={to} to={to} className={`nav-item ${isActive ? "active" : ""}`}>
                 <Icon size={18} />

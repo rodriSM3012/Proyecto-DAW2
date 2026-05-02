@@ -3,6 +3,9 @@ import AppLayout from "./components/AppLayout.jsx";
 import ProtectedRoute from "./components/ProtectedRoute.jsx";
 import DashboardPage from "./pages/DashboardPage.jsx";
 import LoginPage from "./pages/LoginPage.jsx";
+import CatalogPage from "./pages/CatalogPage.jsx";
+import ProductDetailPage from "./pages/ProductDetailPage.jsx";
+import ProductFormPage from "./pages/ProductFormPage.jsx";
 import PlaceholderPage from "./pages/PlaceholderPage.jsx";
 import RegisterUserPage from "./pages/RegisterUserPage.jsx";
 
@@ -28,13 +31,9 @@ function App() {
           />
           <Route
             path="/catalogo"
-            element={
-              <PlaceholderPage
-                title="Gestión de catálogo"
-                description="Listado de productos, detalle y acciones CRUD según permisos."
-              />
-            }
+            element={<CatalogPage />}
           />
+          <Route path="/catalogo/:id" element={<ProductDetailPage />} />
           <Route
             path="/alertas"
             element={
@@ -90,6 +89,8 @@ function App() {
 
       <Route element={<ProtectedRoute minimumRole="admin" />}>
         <Route element={<AppLayout />}>
+          <Route path="/catalogo/nuevo" element={<ProductFormPage mode="create" />} />
+          <Route path="/catalogo/:id/editar" element={<ProductFormPage mode="edit" />} />
           <Route path="/usuarios" element={<RegisterUserPage />} />
           <Route
             path="/configuracion"
