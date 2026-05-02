@@ -8,6 +8,7 @@ import ProductDetailPage from "./pages/ProductDetailPage.jsx";
 import ProductFormPage from "./pages/ProductFormPage.jsx";
 import PlaceholderPage from "./pages/PlaceholderPage.jsx";
 import RegisterUserPage from "./pages/RegisterUserPage.jsx";
+import ScannerPage from "./pages/ScannerPage.jsx";
 
 function App() {
   return (
@@ -75,15 +76,7 @@ function App() {
 
       <Route element={<ProtectedRoute minimumRole="operador" />}>
         <Route element={<AppLayout />}>
-          <Route
-            path="/scanner-qr"
-            element={
-              <PlaceholderPage
-                title="Escaneo de QR"
-                description="Escáner por cámara o imagen para registrar movimientos rápidamente."
-              />
-            }
-          />
+          <Route path="/scanner-qr" element={<ScannerPage />} />
         </Route>
       </Route>
 
