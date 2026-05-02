@@ -24,17 +24,14 @@ export default function UsersPage() {
     loadUsers();
   }, []);
 
-  const handleToggleActive = async (user) => {
+  const handleDelete = async (userId) => {
+    if (!window.confirm("¿Estás seguro de que quieres eliminar a este usuario?")) return;
     try {
-      await api.put(`/api/users/${user.id}`, {
-        name: user.name,
-        role: user.role,
-        activo: !user.activo
-      });
+      await api.delete(`/api/users/${userId}`);
       loadUsers();
     } catch (err) {
       console.error(err);
-      alert("Error al actualizar estado del usuario.");
+      alert("Error al eliminar el usuario.");
     }
   };
 
@@ -63,7 +60,6 @@ export default function UsersPage() {
                   <th>Nombre</th>
                   <th>Email</th>
                   <th>Rol</th>
-                  <th>Estado</th>
                   <th>Creado</th>
                   <th>Acciones</th>
                 </tr>
@@ -76,21 +72,14 @@ export default function UsersPage() {
                     <td>
                       <span className="pill pill-neutral">{u.role}</span>
                     </td>
-                    <td>
-                      {u.activo ? (
-                        <span className="pill pill-success">Activo</span>
-                      ) : (
-                        <span className="pill pill-warning">Inactivo</span>
-                      )}
-                    </td>
-                    <td className="muted">{new Date(u.creado_en).toLocaleDateString()}</td>
+                    <td className="muted">{new Date(u.created_at).toLocaleDateString()}</td>
                     <td>
                       <button 
                         className="btn btn-ghost" 
-                        onClick={() => handleToggleActive(u)}
-                        style={{ padding: "4px 8px", fontSize: "0.85rem", color: u.activo ? "var(--color-scorched-red)" : "var(--color-logistics-green)" }}
+                        onClick={() => handleDelete(u.id)}
+                        style={{ padding: "4px 8px", fontSize: "0.85rem", color: "var(--color-scorched-red)" }}
                       >
-                        {u.activo ? "Desactivar" : "Activar"}
+                        Eliminar
                       </button>
                     </td>
                   </tr>
