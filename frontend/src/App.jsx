@@ -9,6 +9,7 @@ import ProductFormPage from "./pages/ProductFormPage.jsx";
 import PlaceholderPage from "./pages/PlaceholderPage.jsx";
 import RegisterUserPage from "./pages/RegisterUserPage.jsx";
 import ScannerPage from "./pages/ScannerPage.jsx";
+import MovementsPage from "./pages/MovementsPage.jsx";
 
 function App() {
   return (
@@ -23,12 +24,7 @@ function App() {
           />
           <Route
             path="/movimientos"
-            element={
-              <PlaceholderPage
-                title="Gestión de stock / movimientos"
-                description="Registrar entradas, salidas y ajustes de inventario con historial."
-              />
-            }
+            element={<MovementsPage />}
           />
           <Route
             path="/catalogo"

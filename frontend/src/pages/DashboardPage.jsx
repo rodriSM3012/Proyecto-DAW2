@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
+import { Link } from "react-router-dom";
 import {
   Bar,
   BarChart,
@@ -127,7 +128,10 @@ export default function DashboardPage() {
 
       {canSeeAuditorBlocks && (
         <section className="card">
-          <h2>Resumen de movimientos</h2>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "16px" }}>
+            <h2 style={{ margin: 0 }}>Resumen de movimientos</h2>
+            <Link to="/movimientos" className="btn btn-ghost" style={{ fontSize: "0.85rem", padding: "4px 8px", minHeight: "auto" }}>Ver todos</Link>
+          </div>
           <div className="list">
             {latestMovements.length === 0 ? (
               <p className="muted">No hay movimientos todavía.</p>

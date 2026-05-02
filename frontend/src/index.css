@@ -485,6 +485,48 @@ body {
   }
 }
 
+.table-responsive {
+  overflow-x: auto;
+}
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.data-table th,
+.data-table td {
+  padding: 12px 10px;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.data-table th {
+  color: #5f6b79;
+  font-weight: 600;
+  font-size: 0.9rem;
+  border-bottom: 2px solid var(--color-border);
+}
+
+.data-table tbody tr:hover {
+  background: rgba(26, 25, 42, 0.02);
+}
+
+.pagination-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.pagination-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
 @media (max-width: 960px) {
   .app-shell {
     grid-template-columns: 1fr;
