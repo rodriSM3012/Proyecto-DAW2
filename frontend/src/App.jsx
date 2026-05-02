@@ -10,6 +10,7 @@ import PlaceholderPage from "./pages/PlaceholderPage.jsx";
 import RegisterUserPage from "./pages/RegisterUserPage.jsx";
 import ScannerPage from "./pages/ScannerPage.jsx";
 import MovementsPage from "./pages/MovementsPage.jsx";
+import AlertsPage from "./pages/AlertsPage.jsx";
 
 function App() {
   return (
@@ -33,12 +34,7 @@ function App() {
           <Route path="/catalogo/:id" element={<ProductDetailPage />} />
           <Route
             path="/alertas"
-            element={
-              <PlaceholderPage
-                title="Módulo de alertas"
-                description="Alertas activas, histórico y configuración de umbrales."
-              />
-            }
+            element={<AlertsPage />}
           />
           <Route
             path="/clasificacion-abc"

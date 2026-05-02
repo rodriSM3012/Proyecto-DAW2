@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, Outlet, useLocation } from "react-router-dom";
+import api from "../services/api.js";
 import {
   Bell,
   Boxes,
@@ -38,6 +39,21 @@ export default function AppLayout() {
   const { user, hasRole, logout } = useAuth();
   const location = useLocation();
   const [showLogoutConfirm, setShowLogoutConfirm] = useState(false);
+  const [unreadAlerts, setUnreadAlerts] = useState(0);
+
+  useEffect(() => {
+    if (hasRole("auditor")) {
+      api.get("/api/alertas")
+        .then(res => {
+          const count = res.data.alerts?.filter(a => !a.leida).length || 0;
+          setUnreadAlerts(count);
+        })
+        .catch(err => {
+          // Ignore errors gracefully for layout
+          console.error("Error fetching unread alerts:", err);
+        });
+    }
+  }, [hasRole, location.pathname]);
 
   const visibleItems = MENU_ITEMS.filter((item) => hasRole(item.minimumRole));
 
@@ -60,7 +76,21 @@ export default function AppLayout() {
             return (
               <Link key={to} to={to} className={`nav-item ${isActive ? "active" : ""}`}>
                 <Icon size={18} />
-                <span>{label}</span>
+                <span style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexGrow: 1 }}>
+                  {label}
+                  {to === "/alertas" && unreadAlerts > 0 && (
+                    <span style={{
+                      background: "var(--color-scorched-red)",
+                      color: "white",
+                      fontSize: "0.75rem",
+                      padding: "2px 7px",
+                      borderRadius: "12px",
+                      fontWeight: "bold"
+                    }}>
+                      {unreadAlerts}
+                    </span>
+                  )}
+                </span>
               </Link>
             );
           })}
