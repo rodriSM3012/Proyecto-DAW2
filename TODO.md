@@ -1,0 +1,71 @@
+## memoria
+- [ ] 2 Introducción
+	- [ ] 2.1 Presentación del proyecto
+- [ ] 3 Metodología y temporalización
+	- [ ] 3.1 Metodología de trabajo
+	- [ ] 3.2 Organización temporal del proyecto
+- [x] 4 Objetivos, requisitos y actores
+	- [x] 4.1 Objetivo general y específicos del proyecto
+	- [x] 4.2 Requisitos funcionales y no funcionales
+	- [x] 4.3 Actores
+- [x] 5 Diseño y navegación
+	- [x] 5.1 Prototipos
+	- [x] 5.2 Guía de Estilo
+		- [x] Paleta de colores
+		- [x] Tipografía
+		- [x] Iconografía
+	- [x] 5.3 Mapa de navegación
+- [ ] 6 Diagrama de Casos de Uso
+	- [x] 6.1 Diagrama de Casos de Uso
+		- [x] Caso 1: Gestión de catálogo
+		- [x] Caso 2: Registro de Entrada de Mercancía
+		- [x] Caso 3: Sistema de Alertas de Stock Mínimo
+		- [x] Caso 4: Reclasificación Dinámica ABC
+	- [ ] 6.2 Tablas de Especificación
+- [ ] 7 Diagramas de Secuencia
+- [ ] 8 Diagramas de Clase
+- [ ] 9 Modelo Entidad-Relación
+- [ ] 10 Marketing
+	- [x] 10.1 Análisis de Macroentorno y Microentorno
+	- [x] 10.2 DAFO
+	- [ ] 10.3 Plan de Marketing
+	- [x] 10.4 Valoración del proyecto
+		- [x] 10.4.1 Costes directos
+		- [x] 10.4.2 Costes indirectos
+		- [x] 10.4.3 Margen de beneficio
+- [x] 11 Pruebas
+	- [x] 11.1 Test Unitarios
+	- [x] 11.2 Test de Integración
+	- [x] 11.3 Test Funcionales o de Características
+	- [x] 11.4 Test de Usabilidad
+	- [x] 11.5 Test de Seguridad
+	- [x] 11.6 Test de Rendimiento
+		- [x] Registro de los test
+- [ ] 12 Tecnologías utilizadas
+- [x] 13 Manuales
+	- [x] 13.1 Manual de usuario
+		- [x] Requerimientos previos
+		- [x] Perfiles de usuario y niveles de interacción
+	- [x] 13.2 Manual de programador y despliegue
+		- [x] Arquitectura Técnica y Stack Tecnológico
+		- [x] Entorno de Desarrollo y Configuración Inicial
+- [ ] 14 Conclusión
+	- [ ] 14.1 Conclusiones.
+	- [ ] 14.2 Líneas de trabajo futuras.
+- [x] 15 Bibliografía
+
+## cosas para arreglar
+- [ ] dashboard distinto para cada usuario
+- [ ] config disponible para todos
+- [ ] ajustar clasificacion ABC
+- [ ] mantener menu lateral fijo
+- [ ] diseño responsive y uso de camara de movil
+- [ ] poner simbolo menos para los movimientos que sean salidas en vez de +
+- [ ] ajustar algunos botones
+	- [ ] eliminar producto en detalles
+	- [ ] nuevo usuario
+	- [ ] marcar como leido en alertas
+	- [ ] editar en admin de usuarios
+- [ ] añadir cuadros de mensaje como el de cerrar sesion
+- [ ] boton de volver para el registro de usuario nuevo
+- [ ] descripcion esta repetida en la pag de detalles de producto
