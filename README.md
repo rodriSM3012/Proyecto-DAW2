@@ -36,6 +36,7 @@ Escanea con tu móvil, monitoriza las existencias, recibe alertas automáticas y
 
 ## 📸 Capturas de pantalla
 ### 1. Inicio de sesión
+<<<<<<< HEAD
 ![[other/screenshots/web1.png]]
 ### 2. Dashboard del administrador
 ![[other/screenshots/web2.png]]
@@ -45,6 +46,17 @@ Escanea con tu móvil, monitoriza las existencias, recibe alertas automáticas y
 ![[other/screenshots/web4.png]]
 ### 5. Página de detalles del producto
 ![[other/screenshots/web5.png]]
+=======
+![[./other/screenshots/web1.png]]
+### 2. Dashboard del administrador
+![[./other/screenshots/web2.png]]
+### 3. Vista de catálogo
+![[./other/screenshots/web3.png]]
+### 4. Clasificación ABC de cada producto
+![[./other/screenshots/web4.png]]
+### 5. Página de detalles del producto
+![[./other/screenshots/web5.png]]
+>>>>>>> 83dc50231f7cd1a3e46c7dc8c8d2cc07abeed176
 
 ---
 
