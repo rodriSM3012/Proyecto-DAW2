@@ -36,15 +36,15 @@ Escanea con tu móvil, monitoriza las existencias, recibe alertas automáticas y
 
 ## 📸 Capturas de pantalla
 ### 1. Inicio de sesión
-![[web1.png]]
+![[other/screenshots/web1.png]]
 ### 2. Dashboard del administrador
-![[web2.png]]
+![[other/screenshots/web2.png]]
 ### 3. Vista de catálogo
-![[web3.png]]
+![[other/screenshots/web3.png]]
 ### 4. Clasificación ABC de cada producto
-![[web4.png]]
+![[other/screenshots/web4.png]]
 ### 5. Página de detalles del producto
-![[web5.png]]
+![[other/screenshots/web5.png]]
 
 ---
 
