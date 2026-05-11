@@ -58,7 +58,7 @@
 - [ ] dashboard distinto para cada usuario
 - [ ] config disponible para todos
 - [ ] ajustar clasificacion ABC
-- [ ] mantener menu lateral fijo
+- [x] mantener menu lateral fijo
 - [ ] diseño responsive y uso de camara de movil
 - [ ] poner simbolo menos para los movimientos que sean salidas en vez de +
 - [ ] ajustar algunos botones
@@ -69,3 +69,5 @@
 - [ ] añadir cuadros de mensaje como el de cerrar sesion
 - [ ] boton de volver para el registro de usuario nuevo
 - [ ] descripcion esta repetida en la pag de detalles de producto
+- [ ] poner logo en pagina arriba a la izq y en tab
+- [ ] algunas tablas cambian de distancia entre cada columna
